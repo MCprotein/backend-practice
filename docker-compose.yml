@@ -1,0 +1,26 @@
+services:
+  postgresql:
+    image: postgres:16-bullseye
+    restart: always
+    container_name: postgresql
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: postgres
+    volumes:
+      - ./postgresql-data:/var/lib/postgresql/data
+
+  mongodb:
+    image: mongo:latest
+    restart: always
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongodb-data:/data
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+      # - MONGO_INITDB_DATABASE=database
