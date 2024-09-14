@@ -4,6 +4,7 @@ import { ProductModel } from './models/product.model.js'
 import { mongodbConnection } from './db/mongodb.js'
 import { ProductService } from './services/product.service.js'
 import { ProductController } from './controllers/product.controller.js'
+import { prisma } from '../prisma/prisma.js'
 
 const app = express()
 app.use(cors())
@@ -12,6 +13,16 @@ app.use(express.json())
 const productModel = new ProductModel(mongodbConnection)
 const productService = new ProductService(productModel)
 const productController = new ProductController(productService)
+
+await prisma.$connect()
+
+await prisma.products.create({
+  data: {
+    name: 'product1',
+    description: 'product1 description'
+  }
+})
+await prisma.$disconnect()
 
 app.use('/products', productController.getProducts.bind(productController))
 
