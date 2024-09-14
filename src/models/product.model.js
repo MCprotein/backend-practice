@@ -1,4 +1,4 @@
-import { productSchema } from './product.schema'
+import { productSchema } from './product.schema.js'
 
 export const SORT_FIELDS = Object.freeze({
   CREATED_AT: 'createdAt',

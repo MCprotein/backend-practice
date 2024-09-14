@@ -7,13 +7,15 @@ export class ProductController {
     const { name, description, price, tags, sortKey, sortValue, skip, limit } =
       req.query
 
+    console.log(this.productService)
+
     const dto = {
       name,
       description,
       price,
       tags,
       sortKey,
-      sortValues,
+      sortValue,
       skip,
       limit
     }
