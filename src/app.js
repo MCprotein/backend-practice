@@ -2,13 +2,12 @@ import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import { Product } from './models/Product.js'
+import { mongodbConnection } from './db/mongodb.js'
 
 const app = express()
 app.use(cors())
 app.use(express.json())
-mongoose
-  .connect(process.env.MONGODB_DATABASE_URL)
-  .then(() => console.log('Connected to DB'))
+
 app.listen(process.env.PORT || 3000, () => console.log('Server Started'))
 
 const MESSAGES = Object.freeze({
