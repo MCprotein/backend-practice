@@ -15,4 +15,12 @@ const productController = new ProductController(productService)
 
 app.use('/products', productController.getProducts.bind(productController))
 
+app.use((err, req, res, next) => {
+  if (err.statusCode) {
+    return res.status(err.statusCode || 500).json({ message: err.message })
+  }
+
+  res.status(500).json({ message: err.message })
+})
+
 app.listen(process.env.PORT || 3000, () => console.log('Server Started'))
