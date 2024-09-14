@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose'
-import { mongodbConnectionConfig } from '../config/mongodb.config.js'
+import { mongodbConnectionConfig } from '../configs/mongodb.config.js'
 
 const { host, username, password, port } = mongodbConnectionConfig
 
