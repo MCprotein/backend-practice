@@ -2,7 +2,7 @@ import express from 'express'
 import * as dotenv from 'dotenv'
 import cors from 'cors'
 import Product from './models/Product.js'
-
+import { asyncHandler } from './utils/async-handler.js'
 import { productController } from './container.js'
 
 const app = express()
@@ -19,22 +19,8 @@ app.listen(process.env.PORT || 3000, () => console.log('Server Started'))
 //   IDFORMAT: 'Invalid id format.'
 // });
 
-// // handler를 인자로 받아서 오류처리 해주는 함수
-// function asyncHandler(handler) {
-//   return async (req, res) => {
-//     try {
-//       await handler(req, res);
-//     } catch (e) {
-//       if (e.name === 'ValidationError') {
-//         res.status(400).send({ message: e.message });
-//       } else if (e.name === 'CastError') {
-//         res.status(404).send({ message: MESSAGES.IDFORMAT });
-//       } else {
-//         res.status(500).send({ message: e.message });
-//       }
-//     }
-//   };
-// }
+// handler를 인자로 받아서 오류처리 해주는 함수
+
 
 // // get API
 // controller
@@ -113,3 +99,13 @@ app.delete(
     } else res.status(404).send({ message: MESSAGES.NOID })
   })
 )
+
+app.use(errorHandler)
+
+app.use((err, req, res, next) => {
+  if (err.statusCode) {
+    return res.status(err.statusCode).json({ message: err.message })
+  }
+
+  res.status(500).json(어떤것)
+})

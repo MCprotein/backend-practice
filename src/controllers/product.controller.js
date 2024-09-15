@@ -1,3 +1,5 @@
+import { TypeError, ValidationError } from '../utils/error'
+
 export class ProductController {
   constructor(productService) {
     this.productService = productService
@@ -5,6 +7,14 @@ export class ProductController {
 
   getProducts1 = async (req, res) => {
     const { orderBy, page, pageSize, keyword } = req.query
+
+    if (!orderBy || !page || !pageSize) {
+      throw new ValidationError('orderBy, page, pageSize are required')
+    }
+
+    if (isNaN(page) || !Number.isSafeInteger(Number(page))) {
+      throw new TypeError('page should be an integer')
+    }
 
     const products = await this.productService.getProducts({
       orderBy,

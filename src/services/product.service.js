@@ -33,7 +33,7 @@ export class ProductService {
       pageSize,
       keyword
     })
-
+    forEach, reduce, filter, find, findIndex, ...
     const 가공된상품 = products.map((product) => {
       return {
         ...product,
