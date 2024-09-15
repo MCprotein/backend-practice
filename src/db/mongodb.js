@@ -1,9 +1,9 @@
 import * as mongoose from 'mongoose'
 import { mongodbConnectionConfig } from '../configs/mongodb.config.js'
 
-const { host, username, password, port } = mongodbConnectionConfig
+const { host, username, password, port, database } = mongodbConnectionConfig
 
-const mongodbUri = `mongodb://${username}:${password}@${host}:${port}`
+const mongodbUri = `mongodb://${username}:${password}@${host}:${port}/${database}?authSource=admin`
 
 export const mongodbConnection = mongoose.createConnection(mongodbUri)
 
